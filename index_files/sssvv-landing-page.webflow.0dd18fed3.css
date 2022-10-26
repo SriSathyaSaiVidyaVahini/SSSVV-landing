@@ -817,14 +817,14 @@ figcaption {
 .intro-header.cc-subpage.about-us {
   margin-top: 110px;
   background-color: #ccf2ff;
-  background-image: url("/index_files/62ae9fa150108835a328df3b_about%20us%20banner%20SSSVV.png");
+  background-image: url("/index_files/about_us_banner_mandala.jpg");
   background-position: 100% 0%;
 }
 
 .intro-header.cc-subpage.contact {
   margin-top: 100px;
   background-color: #ccf2ff;
-  background-image: url("/index_files/62ae9fa150108835a328df3b_about%20us%20banner%20SSSVV.png");
+  background-image: url("/index_files/about_us_banner_mandala.jpg");
   background-position: 50% 0%;
   background-size: contain;
 }
