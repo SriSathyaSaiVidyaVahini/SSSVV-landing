@@ -129,20 +129,33 @@
             <h1 class="heading-5">How can I become a part of this team?</h1>
             <p class="paragraph-5"><strong>Schools / institutions wanting to avail SSSVV training and implementation free services may kindly provide the following details</strong></p>
             <form>
+                <div class="form-group">
                 <label for="sname">School / Institution Name:</label>
                   <input type="text" id="sname" name="sname"><br>
+                </div>
+                <div class="form-group">
                 <label for="rname">Name of the requestor:</label>
-                  <input type="text" id="rname" name="rname">
+                  <input type="text" id="rname" name="rname"><br>
+                </div>
+                <div class="form-group"><br>
+                </div>
+                <div class="form-group">
                 <label for="dname">Designation of the requestor in the school / institution:</label>
-                  <input type="text" id="dname" name="dname">
+                  <input type="text" id="dname" name="dname"><br>
+                </div>
+                <div class="form-group">
                 <label for="ename">Email contact:</label>
-                  <input type="email" id="ename" name="ename">
+                  <input type="email" id="ename" name="ename"><br>
+                </div>
+                <div class="form-group">
                 <label for="ph">Phone No:</label>
                   <input type="tel" id="ph" name="ph">
+                </div>
+                <br>
                 <input type="submit">
             </form>
-            <span class="containerformresponse"></span>
-            <p class="paragraph-5">Are you inclined to volunteer in development of training content and imparting training to teachers?&nbsp;Can you spare a couple of hours a day or 8 to 10 hours a week? Are you a person with training experience or have created content before or would like to liaise with various team members? <br><strong><em></em></strong></p>
+            <span class="containerformresponse">&nbsp;</span><br>
+            <p class="paragraph-5"><strong>Are you inclined to volunteer</strong> in development of training content and imparting training to teachers?&nbsp;Can you spare a couple of hours a day or 8 to 10 hours a week? Are you a person with training experience or have created content before or would like to liaise with various team members? <br><strong><em></em></strong></p>
         </div>
         <p class="paragraph-13"><a href="mailto:training@sssvv.org" class="link-8"><strong>training@sssvv.org</strong></a><strong> +91 95917 61050</strong></p>
     </div>
@@ -208,7 +221,7 @@
             }).done(function(msg) {
                   
                 // When the request is successful
-                $('span').text('Thank you for submitting your details. We will get back to you shortly, in a week or so.' );
+                $('span').text('<strong>Thank you for submitting your details. We will get back to you shortly, in a week or so.</strong>' );
             }).fail(function(err, textstatus, error) {
                 $('span').text(textstatus);
             });
