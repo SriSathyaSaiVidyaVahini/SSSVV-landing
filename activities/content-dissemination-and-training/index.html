@@ -220,7 +220,7 @@
             }).done(function(msg) {
                   
                 // When the request is successful
-                $('span').text('<strong>Thank you for submitting your details. We will get back to you shortly, in a week or so.</strong>' );
+                $('span').html('<strong>Thank you for submitting your details. We will get back to you shortly, in a week or so.</strong>' );
             }).fail(function(err, textstatus, error) {
                 $('span').text(textstatus);
             });
