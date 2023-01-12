@@ -16,10 +16,13 @@
         }
         input {
             margin-top: 10px;
-            width: 70%
+            width: 50%
         }
         .form-group {
-            clear: left
+            float: none; /* if you had floats before? otherwise inline-block will behave differently */
+            display: inline-block;
+            vertical-align: middle;
+            margin-top: 20px;
         }
     </style>
     <title>LMS</title>
