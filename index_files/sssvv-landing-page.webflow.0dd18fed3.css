@@ -2774,12 +2774,12 @@ figcaption {
 .slider {
   padding: 40px;
   border-radius: 11px;
-  background-color: #390068;
+  background-color: #9cddff;
 }
 
 .slider.lighter {
   min-height: 400px;
-  background-color: #390068;
+  background-color: #9cddff;
   color: #001b85;
 }
 
