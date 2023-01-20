@@ -2774,12 +2774,12 @@ figcaption {
 .slider {
   padding: 40px;
   border-radius: 11px;
-  background-color: #9cddff;
+  background-color: #d9faff;
 }
 
 .slider.lighter {
   min-height: 400px;
-  background-color: #9cddff;
+  background-color: #d9faff;
   color: #001b85;
 }
 
@@ -2803,6 +2803,16 @@ figcaption {
   font-size: 14px;
   font-weight: 300;
 }
+
+.dgreen {
+    color: #005b52;
+}
+
+    .dgreen.padded-paragraph.smaller {
+        font-size: 14px;
+        font-weight: 300;
+    }
+
 
 .div-block-7 {
   background-color: #ffe1c0;
