@@ -3090,8 +3090,8 @@ figcaption {
   grid-auto-columns: 1fr;
   grid-column-gap: 16px;
   grid-row-gap: 16px;
-  -ms-grid-columns: 1fr 1fr 1fr 1fr;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  -ms-grid-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   -ms-grid-rows: auto;
   grid-template-rows: auto;
 }
@@ -3111,6 +3111,11 @@ figcaption {
 
 .heading-16 {
   text-align: center;
+}
+
+.heading-16-extralarge {
+  text-align: center;
+  font-size: 63px;
 }
 
 .heading-17 {
@@ -4096,6 +4101,10 @@ figcaption {
 
   .text-block {
     font-size: 16px;
+  }
+  
+  .text-block-extralarge {
+    font-size: 27px;
   }
 
   .centered-container {
