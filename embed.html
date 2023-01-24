@@ -2,9 +2,9 @@
 <!--saved from url = (0038)https : //sssvv-landing-page.webflow.io/ -->
 <html class="w-mod-js wf-montserrat-n9-active wf-montserrat-n1-active wf-montserrat-n3-active wf-montserrat-n5-active wf-montserrat-n7-active wf-montserrat-n4-active wf-montserrat-n6-active wf-montserrat-n8-active wf-montserrat-n2-active wf-montserrat-i4-active wf-montserrat-i8-active wf-montserrat-i5-active wf-montserrat-i6-active wf-montserrat-i3-active wf-montserrat-i2-active wf-montserrat-i9-active wf-montserrat-i1-active wf-montserrat-i7-active wf-active">
 <head>
-    <meta http - equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <style>
-        .wf - force - outline - none[tabindex = "-1"]:focus {
+        .wf-force-outline-none[tabindex = "-1"]:focus {
             outline: none;
         }
     </style>
@@ -258,9 +258,7 @@
             <h1 class="heading-11">Experiences and Contributions</h1>
             <h2 class="top-pad-30">Content Champs: </h2>
 
-            <div id="cc-div"><p>Loading content champs - this requires javascript ... </p></div>
-
-            <iframe width="100%" height="10%" src="https://script.google.com/macros/s/AKfycbwsZYUthMAXQKeTikSOtQg3hn6NkC3sAZDlibtKc3gKnqRJlqLYEQGKhUEl7LFHf-2F2A/exec" frameBorder="0" scrolling="no"></iframe>
+            <iframe width="100%" height="25%" src="https://script.google.com/macros/s/AKfycbwsZYUthMAXQKeTikSOtQg3hn6NkC3sAZDlibtKc3gKnqRJlqLYEQGKhUEl7LFHf-2F2A/exec" frameBorder="0" scrolling="no"></iframe>
 
             <div data-delay="8000" data-animation="slide" class="slider w-slider" data-autoplay="true" data-easing="ease" data-hide-arrows="false" data-disable-swipe="false" data-autoplay-limit="0" data-nav-spacing="3" data-duration="2000" data-infinite="true" role="region" aria-label="carousel">
                 <div class="w-slider-mask" id="w-slider-mask-0">
@@ -555,13 +553,13 @@
     <script>
         $(document).ready(function () {
 
-            //$("div.cc-div").html(htmlfromgas)
+            //$("div.ccdiv").html(htmlfromgas)
             $.ajax({
                 type: "GET",
                 url: "https://script.google.com/macros/s/AKfycbwsZYUthMAXQKeTikSOtQg3hn6NkC3sAZDlibtKc3gKnqRJlqLYEQGKhUEl7LFHf-2F2A/exec",
                 cache: true,
                 success: function (response) {
-                    $(div.cc - div).html(response);
+                    $(div.ccdiv).html(response);
                 }
             });
         });
