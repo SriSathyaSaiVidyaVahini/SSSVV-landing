@@ -821,6 +821,13 @@ figcaption {
   background-position: 100% 0%;
 }
 
+.intro-header.cc-subpage.testimonials {
+    margin-top: 110px;
+    background-color: #ccf2ff;
+    background-image: url("/index_files/about_us_banner_mandala.jpg");
+    background-position: 100% 0%;
+}
+
 
 .intro-header.cc-subpage.contact {
   margin-top: 100px;
@@ -3381,6 +3388,13 @@ figcaption {
     background-position: 100% 50%;
   }
 
+.intro-header.cc-subpage.testimonials {
+    height: 360px;
+    margin-top: 110px;
+    padding-top: 40px;
+    background-position: 100% 50%;
+}
+
   .intro-header.homepage-banner {
     -webkit-box-align: end;
     -webkit-align-items: flex-end;
@@ -4019,6 +4033,12 @@ figcaption {
     background-position: 59% 50%;
     background-size: cover;
   }
+
+    .intro-header.cc-subpage.testimonials {
+        height: 360px;
+        background-position: 59% 50%;
+        background-size: cover;
+    }
 
   .intro-header.homepage-banner {
     height: 730px;
