@@ -2318,6 +2318,13 @@ figcaption {
   font-size: 28px;
 }
 
+.top-pad-0 {
+    padding-top: 0px;
+    color: #005b52;
+    font-size: 28px;
+}
+
+
 .div-block-4 {
   padding: 10px;
   background-color: #b5e9ff;
