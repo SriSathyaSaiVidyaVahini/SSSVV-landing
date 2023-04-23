@@ -529,6 +529,7 @@
                 }
             };
             xhr.open('GET', file, true);
+            xhr.setRequestHeader('Access-Control-Allow-Origin','*');
             xhr.send();
         }
 
