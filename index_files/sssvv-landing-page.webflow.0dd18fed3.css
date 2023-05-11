@@ -799,6 +799,12 @@ figcaption {
   background-image: url("/index_files/inclusive_education_banner.jpg");
 }
 
+    .intro-header.cc-subpage.sopaan {
+        margin-top: 110px;
+        background-color: #ccf2ff;
+        background-image: url("/index_files/sopaan_banner.jpg");
+    }
+
 .intro-header.cc-subpage.multimedia {
   margin-top: 110px;
   margin-bottom: 0px;
