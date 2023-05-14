@@ -2236,6 +2236,11 @@ figcaption {
   min-width: auto;
 }
 
+.image-5bigger {
+  max-width: 90%;
+  min-width: auto;
+}
+
 .image-6 {
   max-width: 70vh;
 }
