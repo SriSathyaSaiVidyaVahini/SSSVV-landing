@@ -296,8 +296,13 @@
                     }).done(function (msg) {
 
                         // When the request is successful
+                        if(msg=="Success") {
                         $('span').html('<strong>Thank you for submitting your details. We will get back to you shortly, in a week or so.</strong>');
                         $("form").trigger("reset");
+                        }
+                        if(msg=="Failed captcha.") {
+                            $('span').html('<strong>Please resubmit after the captcha loads, checking the box to confirm you are human if necessary.</strong>');
+                        }
                     }).fail(function (err, textstatus, error) {
                         $('span').text(textstatus);
                     });
