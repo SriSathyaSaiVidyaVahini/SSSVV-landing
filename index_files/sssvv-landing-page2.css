@@ -866,6 +866,17 @@ figcaption {
   background-attachment: scroll;
 }
 
+.intro-header.homepage-banner3 {
+  height: 800px;
+  max-height: 100%;
+  background-color: #fff;
+  background-image: url("/index_files/SSSVV-website-banner_modified.jpg");
+  background-position: 50% 0%;
+  background-size: auto;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+}
+
 .intro-content {
   width: 70%;
   max-width: 1140px;
