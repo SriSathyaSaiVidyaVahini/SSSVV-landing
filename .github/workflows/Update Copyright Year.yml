@@ -14,7 +14,7 @@ jobs:
 
       - name: Replace copyright year in HTML files
         run: |
-          find . -type f -name "*.html" -exec sed -i 's/Copyright © 2023 Sri/Copyright © 2025 Sri/g' {} +
+          find . -type f -name "*.html" -exec sed -i 's/Copyright © 2024 Sri/Copyright © 2025 Sri/g' {} +
 
       - name: Commit and push changes
         run: |
