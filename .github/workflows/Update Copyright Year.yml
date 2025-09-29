@@ -1,0 +1,29 @@
+name: Update Copyright Year
+
+on:
+  workflow_dispatch: # Run manually
+   
+
+jobs:
+  update-copyright:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Replace copyright year in HTML files
+        run: |
+          find . -type f -name "*.html" -exec sed -i 's/Copyright © 2023 Sri/Copyright © 2025 Sri/g' {} +
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Update copyright year to 2025"
+            git push
+          fi
