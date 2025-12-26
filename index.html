@@ -132,7 +132,19 @@
         color: black;
         }
 
-
+ 
+  #vms-banner {
+    /* Default spacing for Desktop */
+    margin-top: 100px; 
+  }
+  
+  @media (max-width: 768px) {
+    #vms-banner {
+      /* Adjusted spacing for Mobile */
+      margin-top: 80px; 
+    }
+  }
+ 
     
     </style>
     <title>Sri Sathya Sai Vidya Vahini</title>
@@ -183,7 +195,7 @@
     <div class="section cc-store-home-wrap">
 
         <!-- START VMS Banner -->
-<div style="background-color: #f0f7ff; border-bottom: 2px solid #0056b3; padding: 20px; text-align: center; font-family: 'Open Sans', Arial, sans-serif; color: #333;">
+<div id="vms-banner" style="background-color: #f0f7ff; border-bottom: 2px solid #0056b3; padding: 20px; text-align: center; font-family: 'Open Sans', Arial, sans-serif; color: #333;">
     
     <h3 style="margin-top: 0; color: #0056b3; margin-bottom: 10px;">
         Implementation of the new Volunteer Management System (VMS)
