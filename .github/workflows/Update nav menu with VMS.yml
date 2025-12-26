@@ -1,0 +1,28 @@
+name: Update nav menu with VMS
+
+on:
+  workflow_dispatch: # Run manually
+   
+
+jobs:
+  update-copyright:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Replace copyright year in HTML files
+        run: |
+          find . -type f -name "*.html" -exec sed -i 's|<div><a href="https://contentmanagement.srisathyasaividyavahini.org/"|<div><a href="https://volunteer.srisathyasaividyavahini.org/" target="_blank" class="navigation-item w-nav-link"><img border="0" alt="VMS" title="VMS" src="/index_files/VMS.png" width="125" height="125"></a><a href="https://contentmanagement.srisathyasaividyavahini.org/"|g' {} +
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Update nav link with VMS"
+            git push
+          fi
