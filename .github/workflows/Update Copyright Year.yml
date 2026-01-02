@@ -14,7 +14,7 @@ jobs:
 
       - name: Replace copyright year in HTML files
         run: |
-          find . -type f -name "*.html" -exec sed -i 's/Copyright © 2024 Sri/Copyright © 2025 Sri/g' {} +
+          find . -type f -name "*.html" -exec sed -i 's/Copyright © 2025 Sri/Copyright © 2026 Sri/g' {} +
 
       - name: Commit and push changes
         run: |
@@ -24,6 +24,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "No changes to commit."
           else
-            git commit -m "Update copyright year to 2025"
+            git commit -m "Update copyright year to 2026"
             git push
           fi
