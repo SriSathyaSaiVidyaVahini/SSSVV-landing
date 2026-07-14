@@ -14,7 +14,7 @@ jobs:
 
       - name: Find and Replace in HTML files
         run: |
-          find . -type f -name "*.html" -exec sed -i 's|a href="https://www.linkedin.com/groups/3284128/"|a href="https://www.linkedin.com/company/sri-sathya-sai-vidya-vahini/"|g' {} +
+          find . -type f -name "*.html" -exec sed -i 's|<li class="list-item"><a href="https://www.youtube.com/channel/UChZyM9rpHrRytHO6zd8Gxwg/" target="_blank" class="w-inline-block"><img src="./index_files/626d6e8304af2a45e9df9174_Asset 23YT icon.png" loading="lazy" width="60" alt="" class="image-3"></a></li>|<li class="list-item"><a href="https://www.instagram.com/srisathyasaividyavahini/" target="_blank" class="w-inline-block"><img src="/index_files/insta-icon.png" loading="lazy" width="60" alt="" class="image-3"></a></li><li class="list-item"><a href="https://youtube.com/@sssvv?si=O4cZT9K5AyyDVX0c" target="_blank" class="w-inline-block"><img src="./index_files/626d6e8304af2a45e9df9174_Asset 23YT icon.png" loading="lazy" width="60" alt="" class="image-3"></a></li>|g' {} +
       - name: Commit and push changes
         run: |
           git config --global user.name "github-actions[bot]"
@@ -23,6 +23,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "No changes to commit."
           else
-            git commit -m "Update linkedin links"
+            git commit -m "Update insta and youtube links"
             git push
           fi
