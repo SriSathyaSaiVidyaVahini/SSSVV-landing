@@ -14,7 +14,7 @@ jobs:
 
       - name: Find and Replace in HTML files
         run: |
-          find . -type f -name "*.html" -exec sed -i 's|"./index_files/61bfb4a342750d81aff07ae0_SSSVV_Logo.png"|"/index_files/2026-SSVV-logo.png"|g' {} +
+          find . -type f -name "*.html" -exec sed -i 's|"/index_files/2026-SSVV-logo.png"|"/index_files/2026-SSSVV-logo.png"|g' {} +
       - name: Commit and push changes
         run: |
           git config --global user.name "github-actions[bot]"
