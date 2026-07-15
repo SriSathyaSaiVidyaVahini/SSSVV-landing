@@ -1232,8 +1232,6 @@ async function loadVideos({ silent } = {}){
   }
 }
 
-refreshBtn.addEventListener('click', () => loadVideos({ silent: true }));
-
 loadVideos();
 setInterval(() => loadVideos({ silent: true }), CONFIG.POLL_INTERVAL_MINUTES * 60 * 1000);
 </script>
