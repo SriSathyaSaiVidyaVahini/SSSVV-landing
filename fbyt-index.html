@@ -971,6 +971,12 @@ to oversee and execute the implementation of the SWAYAM Plus Initiative. SWAYAM 
   margin-bottom: 1rem;
   color: #1877F2;
   }
+ .yt-feed-title {
+  text-align: center;
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: #FF0000;
+  }
  
   .fb-feed-inner {
     display: flex;
@@ -1018,9 +1024,14 @@ to oversee and execute the implementation of the SWAYAM Plus Initiative. SWAYAM 
   })();
 </script>
 <!-- Youtube grid section -->
+
+<section class="fb-feed-wrapper" id=videos>
+  <h2 class="yt-feed-title">Latest videos</h2>
+
+
 <div class="controls">
     <div class="status-line" id="statusLine">Loading…</div>
-    <button class="refresh-btn" id="refreshBtn">↻ Check for new uploads</button>
+    <button class="refresh-btn" id="refreshBtn"> </button>
   </div>
 
   <div class="grid-wrap">
@@ -1032,7 +1043,7 @@ to oversee and execute the implementation of the SWAYAM Plus Initiative. SWAYAM 
     </div>
   </div>
 
-  <footer class="credits">Auto-refreshes every <span id="pollMinutesLabel"></span> minutes · click a ticket to watch</footer>
+  <footer class="credits"> </footer>
 
   <div class="modal-overlay" id="modalOverlay">
     <button class="modal-close" id="modalClose" aria-label="Close video">✕</button>
