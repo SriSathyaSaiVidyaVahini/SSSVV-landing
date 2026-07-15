@@ -597,101 +597,69 @@ to oversee and execute the implementation of the SWAYAM Plus Initiative. SWAYAM 
 
 
 <!-- 2) The feed itself (place wherever you want it on the homepage) -->
-<section class="fb-feed-wrapper">
-  <h2 class="work-heading">Latest updates from our Facebook Page</h2>
-
-  <div class="fb-feed-inner">
-    <div class="fb-page"
-      data-href="https://www.facebook.com/profile.php?id=61587747644525"
-      data-tabs="timeline"
-      data-width="500"
-      data-height="600"
-      data-small-header="true"
-      data-adapt-container-width="true"
-      data-hide-cover="false"
-      data-show-facepile="false">
-      <blockquote cite="https://www.facebook.com/profile.php?id=61587747644525"
-        class="fb-xfbml-parse-ignore">
-        <a href="https://www.facebook.com/profile.php?id=61587747644525">
-          Our Facebook Page
-        </a>
-      </blockquote>
-    </div>
-  </div>
-
-    <!--   Scaled -->
-    <!-- Outer wrapper sets the actual 940px layout footprint on your page -->
-<div class="fb-feed-outer" style="width: 940px; height: 1128px; overflow: hidden; margin: 0 auto;">
-  <!-- Inner container scales the 500px widget up to 940px -->
-  <div class="fb-scale-wrapper" style="transform: scale(1.88); transform-origin: top left; width: 500px; height: 600px;">
-    
-    <!-- Your Facebook Page Plugin -->
-    <div class="fb-page"
-      data-href="https://www.facebook.com/profile.php?id=61587747644525"
-      data-tabs="timeline"
-      data-width="500"
-      data-height="600"
-      data-small-header="true"
-      data-adapt-container-width="false"
-      data-hide-cover="false"
-      data-show-facepile="false">
-      <blockquote cite="https://www.facebook.com/profile.php?id=61587747644525"
-        class="fb-xfbml-parse-ignore">
-        <a href="https://www.facebook.com/profile.php?id=61587747644525">Our Facebook Page</a>
-      </blockquote>
-    </div>
-
-  </div>
-</div>
-
-</section>
-
-    <!--   /Scaled -->
-    <!--   Centred -->
-    <section class="fb-feed-wrapper" style="width: 940px; margin: 0 auto; text-align: center;">
-  <h2 class="fb-feed-title">Latest from our Facebook Page</h2>
+<!--
+    Facebook hard-caps the Page Plugin at 500px wide. To visually match
+    our 940px dev boxes, we render the plugin at its native 500x450
+    size, then scale it up 1.88x with a CSS transform (500 * 1.88 = 940).
+    Height is set to 450 pre-scale (25% smaller than the original 600),
+    which becomes 846px once scaled — a 25% reduction either way you
+    calculate it, since scaling is linear.
  
-  <!-- This wrapper centers the 500px iframe inside the 940px section -->
-  <div class="fb-feed-inner" style="display: flex; justify-content: center;">
-    <div class="fb-page"
-      data-href="https://www.facebook.com/profile.php?id=61587747644525"
-      data-tabs="timeline"
-      data-width="500"
-      data-height="600"
-      data-small-header="true"
-      data-adapt-container-width="true"
-      data-hide-cover="false"
-      data-show-facepile="false">
-      <!-- ... fallback blockquote ... -->
+    The outer .fb-scale-outer div is sized to the FINAL scaled dimensions
+    (940x846) so it reserves the correct space in the page layout — a
+    transform alone doesn't do that, since it only affects how the
+    element is painted, not the space it occupies in flow.
+  -->
+  <div class="fb-feed-inner">
+    <div class="fb-scale-outer" style="width: 940px; height: 846px; overflow: hidden;">
+      <div class="fb-scale-wrapper" style="transform: scale(1.88); transform-origin: top left; width: 500px; height: 450px;">
+        <div class="fb-page"
+          data-href="https://www.facebook.com/profile.php?id=61587747644525"
+          data-tabs="timeline"
+          data-width="500"
+          data-height="450"
+          data-small-header="true"
+          data-adapt-container-width="false"
+          data-hide-cover="false"
+          data-show-facepile="false">
+          <blockquote cite="https://www.facebook.com/profile.php?id=61587747644525"
+            class="fb-xfbml-parse-ignore">
+            <a href="https://www.facebook.com/profile.php?id=61587747644525">
+              Our Facebook Page
+            </a>
+          </blockquote>
+        </div>
+      </div>
     </div>
   </div>
 </section>
-    
-    
-
-
+ 
 <style>
-  /* Basic responsive container — adjust to match your site's styling */
+  /* Basic responsive container — matches the 940px max-width used by
+     other dev boxes on this site. NOTE: Facebook hard-caps the Page
+     Plugin itself at 500px wide (their iframe, their limit — this
+     can't be overridden via CSS or data-width). The widget will sit
+     inside this wider box rather than stretching to fill it. */
   .fb-feed-wrapper {
-    max-width: 520px;
+    max-width: 940px;
     margin: 2rem auto;
     padding: 1rem;
     box-sizing: border-box;
   }
-
+ 
   .fb-feed-title {
     text-align: center;
     font-size: 1.4rem;
     margin-bottom: 1rem;
   }
-
+ 
   .fb-feed-inner {
     display: flex;
-    justify-content: center;
+    justify-content: center; /* centers the 500px-capped widget within the 940px box */
     width: 100%;
     overflow: hidden; /* keeps the iframe from overflowing on small screens */
   }
-
+ 
   /* On small screens, let the plugin shrink with the container.
      data-adapt-container-width="true" (set above) handles the resizing,
      this just makes sure the wrapper itself doesn't force horizontal scroll. */
@@ -701,9 +669,37 @@ to oversee and execute the implementation of the SWAYAM Plus Initiative. SWAYAM 
     }
   }
 </style>
-        </div>
-    </section>
-    <section id="contact-form" class="contact-form-2 wf-section">
+ 
+<script>
+  // Since we turned off data-adapt-container-width (needed for the fixed
+  // scale math above), we handle responsiveness manually: recalculate the
+  // scale factor whenever the wrapper is narrower than 940px, so the plugin
+  // shrinks to fit instead of overflowing on smaller dev boxes / mobile.
+  (function () {
+    var BASE_WIDTH = 500;
+    var BASE_HEIGHT = 450;
+    var MAX_WIDTH = 940;
+ 
+    function rescaleFbPlugin() {
+      var outer = document.querySelector('.fb-scale-outer');
+      var wrapper = document.querySelector('.fb-scale-wrapper');
+      if (!outer || !wrapper) return;
+ 
+      var containerWidth = outer.parentElement.clientWidth;
+      var targetWidth = Math.min(containerWidth, MAX_WIDTH);
+      var scale = targetWidth / BASE_WIDTH;
+ 
+      wrapper.style.transform = 'scale(' + scale + ')';
+      outer.style.width = targetWidth + 'px';
+      outer.style.height = (BASE_HEIGHT * scale) + 'px';
+    }
+ 
+    window.addEventListener('load', rescaleFbPlugin);
+    window.addEventListener('resize', rescaleFbPlugin);
+  })();
+</script>
+
+                <section id="contact-form" class="contact-form-2 wf-section">
         <div class="w-container">
             <h2 class="heading-13">We would love to have your help!</h2>
             <div id="formInstructions" class="small-text">
