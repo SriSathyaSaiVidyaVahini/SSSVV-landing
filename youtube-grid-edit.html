@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Now Screening — Latest Uploads</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#F6F1E7;
+    --ink:#1A1817;
+    --marquee-red:#C1272D;
+    --marquee-red-dark:#8F1C21;
+    --gold:#B8860B;
+    --grey:#8B8680;
+    --card-bg:#FFFFFF;
+    --shadow: rgba(26,24,23,0.14);
+  }
+
+  *{ box-sizing:border-box; }
+
+  body{
+    margin:0;
+    background:var(--cream);
+    background-image:
+      radial-gradient(circle at 1px 1px, rgba(26,24,23,0.05) 1px, transparent 0);
+    background-size: 22px 22px;
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    padding: 0 0 64px;
+  }
+
+  /* ---------- Marquee header ---------- */
+  .marquee{
+    background:var(--ink);
+    color:var(--cream);
+    padding: 28px 24px 18px;
+    text-align:center;
+    position:relative;
+  }
+  .sprockets{
+    display:flex;
+    justify-content:center;
+    gap:14px;
+    padding: 0 0 14px;
+  }
+  .sprockets span{
+    width:9px; height:9px;
+    border-radius:50%;
+    background:var(--cream);
+    opacity:0.85;
+  }
+  .marquee h1{
+    font-family:'Bebas Neue', sans-serif;
+    font-size: clamp(2.2rem, 6vw, 3.4rem);
+    letter-spacing: 0.08em;
+    margin: 0 0 4px;
+  }
+  .marquee h1 em{
+    font-style:normal;
+    color:var(--marquee-red);
+    text-shadow: 0 0 18px rgba(193,39,45,0.55);
+  }
+  .marquee p{
+    margin:0;
+    color: #C9C4BA;
+    font-size:0.92rem;
+    letter-spacing:0.02em;
+  }
+  .marquee .sprockets.bottom{ padding: 14px 0 0; }
+
+  /* ---------- Controls bar ---------- */
+  .controls{
+    max-width:1200px;
+    margin: 22px auto 0;
+    padding: 0 24px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    flex-wrap:wrap;
+  }
+  .status-line{
+    font-size:0.82rem;
+    color:var(--grey);
+  }
+  .status-line strong{ color:var(--ink); }
+  .refresh-btn{
+    font-family:'Inter', sans-serif;
+    font-weight:600;
+    font-size:0.82rem;
+    letter-spacing:0.03em;
+    background:var(--card-bg);
+    border:1px solid var(--ink);
+    color:var(--ink);
+    padding:8px 16px;
+    border-radius:999px;
+    cursor:pointer;
+    transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease;
+  }
+  .refresh-btn:hover{ background:var(--ink); color:var(--cream); }
+  .refresh-btn:focus-visible, a:focus-visible, .ticket:focus-visible{
+    outline: 3px solid var(--gold);
+    outline-offset: 2px;
+  }
+
+  /* ---------- New-upload toast ---------- */
+  .toast{
+    position:fixed;
+    left:50%;
+    bottom:24px;
+    transform: translate(-50%, 120%);
+    background:var(--ink);
+    color:var(--cream);
+    padding:12px 20px;
+    border-radius:10px;
+    font-size:0.88rem;
+    max-width:90vw;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    transition: transform 0.35s ease;
+    z-index:60;
+  }
+  .toast.show{ transform: translate(-50%, 0); }
+  .toast strong{ color:#F3C94A; }
+
+  /* ---------- Masonry grid ---------- */
+  .grid-wrap{
+    max-width:1200px;
+    margin: 20px auto 0;
+    padding: 0 24px;
+  }
+  .grid{
+    column-count:1;
+    column-gap:20px;
+  }
+  @media (min-width:640px){ .grid{ column-count:2; } }
+  @media (min-width:960px){ .grid{ column-count:3; } }
+  @media (min-width:1280px){ .grid{ column-count:4; } }
+
+  .ticket{
+    break-inside: avoid;
+    margin: 0 0 20px;
+    background:var(--card-bg);
+    border-radius:10px;
+    box-shadow: 0 6px 18px var(--shadow);
+    overflow:hidden;
+    display:block;
+    text-decoration:none;
+    color:inherit;
+    cursor:pointer;
+    border:none;
+    width:100%;
+    text-align:left;
+    padding:0;
+    position:relative;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .ticket:nth-child(3n){ transform: rotate(-0.6deg); }
+  .ticket:nth-child(3n+1){ transform: rotate(0.5deg); }
+  .ticket:hover{
+    transform: translateY(-4px) rotate(0deg);
+    box-shadow: 0 14px 30px var(--shadow);
+  }
+
+  .ticket .new-flag{
+    position:absolute;
+    top:10px; right:-30px;
+    background:var(--marquee-red);
+    color:#fff;
+    font-size:0.65rem;
+    font-weight:700;
+    letter-spacing:0.08em;
+    padding:4px 34px;
+    transform: rotate(35deg);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+  }
+
+  .thumb-wrap{
+    position:relative;
+    width:100%;
+    aspect-ratio: 16 / 9;
+    background:#e4ddce;
+    overflow:hidden;
+  }
+  .thumb-wrap img{
+    width:100%; height:100%;
+    object-fit:cover;
+    display:block;
+  }
+  .play-badge{
+    position:absolute;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background: rgba(26,24,23,0);
+    transition: background 0.2s ease;
+  }
+  .ticket:hover .play-badge{ background: rgba(26,24,23,0.18); }
+  .play-badge svg{
+    width:46px; height:46px;
+    opacity:0;
+    transform: scale(0.8);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,0.4));
+  }
+  .ticket:hover .play-badge svg{ opacity:1; transform:scale(1); }
+
+  .perforation{
+    height:0;
+    border-top: 2px dashed #D9D2C2;
+    position:relative;
+    margin: 0 14px;
+  }
+  .perforation::before, .perforation::after{
+    content:'';
+    position:absolute;
+    top:-8px;
+    width:16px; height:16px;
+    border-radius:50%;
+    background:var(--cream);
+  }
+  .perforation::before{ left:-22px; }
+  .perforation::after{ right:-22px; }
+
+  .ticket-body{ padding: 14px 16px 16px; }
+  .ticket-body h3{
+    margin:0 0 6px;
+    font-size:0.98rem;
+    line-height:1.35;
+    font-weight:600;
+    display:-webkit-box;
+    -webkit-line-clamp:2;
+    -webkit-box-orient:vertical;
+    overflow:hidden;
+  }
+  .meta{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    font-size:0.78rem;
+    color:var(--grey);
+  }
+  .meta .dot{
+    width:6px; height:6px;
+    border-radius:50%;
+    background:var(--marquee-red);
+    flex-shrink:0;
+  }
+
+  /* ---------- Empty / error / loading states ---------- */
+  .state-card{
+    max-width:560px;
+    margin: 60px auto;
+    background:var(--card-bg);
+    border-radius:12px;
+    padding:28px 26px;
+    text-align:center;
+    box-shadow: 0 6px 18px var(--shadow);
+  }
+  .state-card h2{
+    font-family:'Bebas Neue', sans-serif;
+    letter-spacing:0.05em;
+    font-size:1.6rem;
+    margin:0 0 8px;
+    color:var(--marquee-red);
+  }
+  .state-card p{ font-size:0.9rem; color:#444; line-height:1.5; }
+  .state-card code{
+    background:#F0EAD9;
+    padding:2px 6px;
+    border-radius:4px;
+    font-size:0.82rem;
+  }
+
+  .skeleton{
+    break-inside: avoid;
+    margin:0 0 20px;
+    border-radius:10px;
+    background:linear-gradient(100deg, #ece6d8 30%, #f5f0e4 45%, #ece6d8 60%);
+    background-size: 250% 100%;
+    animation: shimmer 1.4s ease infinite;
+    aspect-ratio: 16/12;
+  }
+  @keyframes shimmer{ 0%{background-position:120% 0;} 100%{background-position:-20% 0;} }
+
+  /* ---------- Modal ---------- */
+  .modal-overlay{
+    position:fixed; inset:0;
+    background:rgba(10,10,10,0.82);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:100;
+    padding:24px;
+  }
+  .modal-overlay.open{ display:flex; }
+  .modal-box{
+    width:100%;
+    max-width:920px;
+    background:#000;
+    border-radius:10px;
+    overflow:hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+  .modal-frame-wrap{ position:relative; width:100%; aspect-ratio:16/9; }
+  .modal-frame-wrap iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .modal-close{
+    position:fixed;
+    top:24px; right:24px;
+    background:var(--cream);
+    color:var(--ink);
+    border:none;
+    width:40px; height:40px;
+    border-radius:50%;
+    font-size:1.2rem;
+    cursor:pointer;
+    z-index:101;
+  }
+
+  footer.credits{
+    text-align:center;
+    font-size:0.75rem;
+    color:var(--grey);
+    margin-top:36px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .ticket, .toast, .play-badge, .play-badge svg{ transition:none; }
+    .ticket:nth-child(3n), .ticket:nth-child(3n+1){ transform:none; }
+    .skeleton{ animation:none; }
+  }
+</style>
+</head>
+<body>
+
+   
+
+  <div class="controls">
+    <div class="status-line" id="statusLine">Loading…</div>
+     
+  </div>
+
+  <div class="grid-wrap">
+    <div class="grid" id="grid">
+      <div class="skeleton"></div>
+      <div class="skeleton"></div>
+      <div class="skeleton"></div>
+      <div class="skeleton"></div>
+    </div>
+  </div>
+
+   
+
+  <div class="modal-overlay" id="modalOverlay">
+    <button class="modal-close" id="modalClose" aria-label="Close video">✕</button>
+    <div class="modal-box">
+      <div class="modal-frame-wrap" id="modalFrameWrap"></div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+<script>
+/* =========================================================================
+   CONFIGURE ME
+   ========================================================================= */
+const CONFIG = {
+  // Your channel ID (starts with "UC…") — found in YouTube Studio > Settings
+  // > Channel > Advanced. You can also pass a handle like "@yourchannel" and
+  // it will be resolved automatically.
+  CHANNEL_ID: 'UChZyM9rpHrRytHO6zd8Gxwg', // <-- replace with your channel ID
+
+  // A YouTube Data API v3 key, restricted to your domain via HTTP referrer
+  // restrictions in Google Cloud Console (APIs & Services > Credentials).
+  API_KEY: 'AIzaSyCzb2CjmkEa6O0ffGQIoTB3Zvsbia9xGt0', // <-- replace with your key
+
+  MAX_RESULTS: 16,          // how many videos to show
+  POLL_INTERVAL_MINUTES: 100 // how often to check for new uploads
+};
+/* ========================================================================= */
+
+const API_BASE = 'https://www.googleapis.com/youtube/v3';
+const grid = document.getElementById('grid');
+const statusLine = document.getElementById('statusLine');
+const refreshBtn = document.getElementById('refreshBtn');
+const toast = document.getElementById('toast');
+const modalOverlay = document.getElementById('modalOverlay');
+const modalFrameWrap = document.getElementById('modalFrameWrap');
+const modalClose = document.getElementById('modalClose');
+
+document.getElementById('pollMinutesLabel').textContent = CONFIG.POLL_INTERVAL_MINUTES;
+
+let knownIds = new Set();
+let uploadsPlaylistId = null;
+let isFirstLoad = true;
+
+function timeAgo(iso){
+  const diffMs = Date.now() - new Date(iso).getTime();
+  const mins = Math.floor(diffMs / 60000);
+  if (mins < 60) return `${mins}m ago`;
+  const hrs = Math.floor(mins / 60);
+  if (hrs < 24) return `${hrs}h ago`;
+  const days = Math.floor(hrs / 24);
+  if (days < 30) return `${days}d ago`;
+  const months = Math.floor(days / 30);
+  if (months < 12) return `${months}mo ago`;
+  return `${Math.floor(months / 12)}y ago`;
+}
+
+function showState(title, message){
+  grid.innerHTML = `
+    <div class="state-card" style="column-span: all;">
+      <h2>${title}</h2>
+      <p>${message}</p>
+    </div>`;
+}
+
+// Resolve "@handle" style channel identifiers to a real channel ID.
+async function resolveChannelId(idOrHandle){
+  if (idOrHandle.startsWith('UC')) return idOrHandle;
+  const handle = idOrHandle.replace(/^@/, '');
+  const url = `${API_BASE}/channels?part=id&forHandle=${encodeURIComponent(handle)}&key=${CONFIG.API_KEY}`;
+  const res = await fetch(url);
+  const data = await res.json();
+  if (data.error) throw new Error(data.error.message);
+  if (!data.items || !data.items.length) throw new Error('Could not resolve channel handle.');
+  return data.items[0].id;
+}
+
+// The uploads playlist ID is always the channel ID with "UC" swapped for "UU" —
+// this avoids an extra API call (and extra quota) vs. calling channels.list.
+function deriveUploadsPlaylistId(channelId){
+  return channelId.startsWith('UC') ? 'UU' + channelId.slice(2) : null;
+}
+
+async function fetchLatestVideos(){
+  const url = `${API_BASE}/playlistItems?part=snippet&playlistId=${uploadsPlaylistId}&maxResults=${CONFIG.MAX_RESULTS}&key=${CONFIG.API_KEY}`;
+  const res = await fetch(url);
+  const data = await res.json();
+  if (data.error) throw new Error(data.error.message);
+  return (data.items || [])
+    .filter(item => item.snippet && item.snippet.resourceId)
+    .map(item => ({
+      id: item.snippet.resourceId.videoId,
+      title: item.snippet.title,
+      publishedAt: item.snippet.publishedAt,
+      thumbnail:
+        item.snippet.thumbnails?.high?.url ||
+        item.snippet.thumbnails?.medium?.url ||
+        item.snippet.thumbnails?.default?.url
+    }));
+}
+
+function renderCard(video, isNew){
+  const el = document.createElement('button');
+  el.className = 'ticket';
+  el.type = 'button';
+  el.setAttribute('aria-label', `Play video: ${video.title}`);
+  el.innerHTML = `
+    ${isNew ? '<div class="new-flag">NEW</div>' : ''}
+    <div class="thumb-wrap">
+      <img src="${video.thumbnail}" alt="" loading="lazy">
+      <div class="play-badge">
+        <svg viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="32" fill="rgba(255,255,255,0.92)"/><path d="M26 20L46 32L26 44V20Z" fill="#1A1817"/></svg>
+      </div>
+    </div>
+    <div class="perforation"></div>
+    <div class="ticket-body">
+      <h3>${video.title}</h3>
+      <div class="meta"><span class="dot"></span> ${timeAgo(video.publishedAt)}</div>
+    </div>
+  `;
+  el.addEventListener('click', () => openModal(video.id, video.title));
+  return el;
+}
+
+function openModal(videoId, title){
+  modalFrameWrap.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0" title="${title}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+  modalOverlay.classList.add('open');
+}
+function closeModal(){
+  modalOverlay.classList.remove('open');
+  modalFrameWrap.innerHTML = '';
+}
+modalClose.addEventListener('click', closeModal);
+modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) closeModal(); });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+
+function showToast(msg){
+  toast.innerHTML = msg;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 4200);
+}
+
+async function loadVideos({ silent } = {}){
+  try{
+    if (!silent){
+      statusLine.textContent = 'Loading…';
+    }
+
+    if (!uploadsPlaylistId){
+      const resolvedChannelId = await resolveChannelId(CONFIG.CHANNEL_ID);
+      uploadsPlaylistId = deriveUploadsPlaylistId(resolvedChannelId);
+    }
+
+    const videos = await fetchLatestVideos();
+
+    if (!videos.length){
+      showState('No uploads yet', 'This channel doesn\'t have any public videos to show.');
+      return;
+    }
+
+    const newOnes = videos.filter(v => !knownIds.has(v.id));
+
+    if (isFirstLoad){
+      grid.innerHTML = '';
+      videos.forEach(v => grid.appendChild(renderCard(v, false)));
+      videos.forEach(v => knownIds.add(v.id));
+      isFirstLoad = false;
+    } else if (newOnes.length){
+      newOnes.reverse().forEach(v => {
+        grid.prepend(renderCard(v, true));
+        knownIds.add(v.id);
+      });
+      showToast(`🎬 New upload: <strong>${newOnes[0].title}</strong>`);
+    }
+
+    const now = new Date();
+    statusLine.innerHTML = `<strong>${videos.length}</strong> videos shown · checked at ${now.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}`;
+
+  } catch(err){
+    console.error(err);
+    showState(
+      'Setup needed',
+      `Couldn't load videos (${err.message}). Double-check <code>CHANNEL_ID</code> and <code>API_KEY</code> at the top of the script, and make sure the YouTube Data API v3 is enabled for your key in Google Cloud Console.`
+    );
+    statusLine.textContent = 'Not connected';
+  }
+}
+
+refreshBtn.addEventListener('click', () => loadVideos({ silent: true }));
+
+loadVideos();
+setInterval(() => loadVideos({ silent: true }), CONFIG.POLL_INTERVAL_MINUTES * 60 * 1000);
+</script>
+</body>
+</html>
