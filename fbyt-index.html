@@ -1068,7 +1068,7 @@ const CONFIG = {
   // restrictions in Google Cloud Console (APIs & Services > Credentials).
   API_KEY: 'AIzaSyCzb2CjmkEa6O0ffGQIoTB3Zvsbia9xGt0', // <-- replace with your key
 
-  MAX_RESULTS: 16,          // how many videos to show
+  MAX_RESULTS: 20,          // how many videos to show
   POLL_INTERVAL_MINUTES: 10 // how often to check for new uploads
 };
 /* ========================================================================= */
@@ -1218,7 +1218,8 @@ async function loadVideos({ silent } = {}){
     }
 
     const now = new Date();
-    statusLine.innerHTML = `<strong>${videos.length}</strong> videos shown · checked at ${now.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}`;
+    // statusLine.innerHTML = `<strong>${videos.length}</strong> videos shown · checked at ${now.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}`;
+    statusLine.innerHTML = ` `;
 
   } catch(err){
     console.error(err);
