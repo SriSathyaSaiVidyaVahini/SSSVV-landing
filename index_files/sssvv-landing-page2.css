@@ -814,10 +814,12 @@ figcaption {
 }
 
 .intro-header.cc-subpage.content-creation {
+  margin-top: 110px; /* Add these to match the other elements like .intro-header.cc-subpage.multimedia */
+  margin-bottom: 0px;
   background-color: #ccf2ff;
   background-image: url("/index_files/content_creation_banner.jpg");
   background-position: 100% 0%;
-  background-size: cover;
+  
 }
 
 .intro-header.cc-subpage.about-us {
