@@ -1027,7 +1027,7 @@ to oversee and execute the implementation of the SWAYAM Plus Initiative. SWAYAM 
 
 <section class="fb-feed-wrapper" id=videos>
   <h2 class="yt-feed-title">Latest videos</h2>
-</section>
+
 
 <div class="controls">
     <div class="status-line" id="statusLine">Loading…</div>
@@ -1234,7 +1234,11 @@ async function loadVideos({ silent } = {}){
 loadVideos();
 setInterval(() => loadVideos({ silent: true }), CONFIG.POLL_INTERVAL_MINUTES * 60 * 1000);
 </script>
+
+</section>
+            
 <!-- Youtube grid section -->
+            
                 <section id="contact-form" class="contact-form-2 wf-section">
         <div class="w-container">
             <h2 class="heading-13">We would love to have your help!</h2>
