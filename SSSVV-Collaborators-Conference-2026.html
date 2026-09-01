@@ -23,10 +23,10 @@
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
-  html { height: 100%; }
+  html { min-height: 100%; }
   body {
-    height: 100%;
-    overflow: hidden;
+    min-height: 100vh;
+    overflow-x: hidden;
     font-family: var(--body);
     color: var(--text);
     background:
@@ -53,8 +53,8 @@
   .page {
     position: relative;
     z-index: 1;
-    height: 100vh;
-    height: 100dvh;
+    min-height: 100vh;
+    min-height: 100dvh;
     display: flex;
     flex-direction: column;
     max-width: 1200px;
